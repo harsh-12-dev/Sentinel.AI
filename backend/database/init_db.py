@@ -1,5 +1,5 @@
 from backend.database.connection import engine, Base
-from backend.database.models import ScanHistory
+from backend.database.models import User, ScanHistory
 
 
 def init_db():
