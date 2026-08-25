@@ -22,3 +22,9 @@ Thumbs.db
 
 data/
 *.pkl
+
+node_modules/
+frontend/dist/
+
+frontend/.vite/
+*.sqlite3

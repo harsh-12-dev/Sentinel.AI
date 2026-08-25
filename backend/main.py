@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend.api.routes.health import router as health_router
 from backend.api.v1.routes.url_scanner import router as url_scanner_router
@@ -9,6 +10,15 @@ app = FastAPI(
     title="Sentinel AI",
     description="AI-Powered Digital Safety Platform",
     version="1.0.0"
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],   # Vite ka default port
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
