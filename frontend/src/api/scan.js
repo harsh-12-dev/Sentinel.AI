@@ -1,7 +1,11 @@
 import api from "./client";
 
 export async function scanUrl(url) {
-  const res = await api.post("/api/v1/scan/url", { url });
+  // Log aksar scheme ke bina URL paste karte hain
+  const cleaned = url.trim();
+  const fullUrl = /^https?:\/\//i.test(cleaned) ? cleaned : `http://${cleaned}`;
+
+  const res = await api.post("/api/v1/scan/url", { url: fullUrl });
   return res.data;
 }
 

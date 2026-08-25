@@ -32,7 +32,13 @@ export default function Dashboard() {
       const data = await scanUrl(url);
       setResult(data);
     } catch (err) {
-      setError(err.response?.data?.detail || "Scan failed. Try again.");
+      const detail = err.response?.data?.detail;
+      if (Array.isArray(detail)) {
+        // FastAPI validation errors ek array of objects hote hain
+        setError(detail.map((d) => d.msg).join(", "));
+      } else {
+        setError(detail || "Scan failed. Try again.");
+      }
     } finally {
       setLoading(false);
     }
