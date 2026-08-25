@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard";
+import History from "./pages/History";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { isLoggedIn } from "./api/auth";
@@ -21,6 +22,14 @@ export default function App() {
           element={
             <Protected>
               <Dashboard />
+            </Protected>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <Protected>
+              <History />
             </Protected>
           }
         />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { scanUrl } from "../api/scan";
 import { logout } from "../api/auth";
 
@@ -47,12 +47,21 @@ export default function Dashboard() {
     <div className="min-h-screen bg-slate-900">
       <header className="border-b border-slate-800 px-6 py-4 flex justify-between items-center">
         <h1 className="text-xl font-bold text-white">🛡️ Sentinel AI</h1>
-        <button
-          onClick={handleLogout}
-          className="text-sm text-slate-400 hover:text-white transition"
-        >
-          Logout
-        </button>
+
+        <div className="flex gap-4 items-center">
+          <Link
+            to="/history"
+            className="text-sm text-slate-400 hover:text-white transition"
+          >
+            History
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="text-sm text-slate-400 hover:text-white transition"
+          >
+            Logout
+          </button>
+        </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-6 py-10">
