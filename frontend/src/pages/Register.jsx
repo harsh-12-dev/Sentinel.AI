@@ -21,7 +21,12 @@ export default function Register() {
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.detail || "Registration failed.");
+      const detail = err.response?.data?.detail;
+      if (Array.isArray(detail)) {
+        setError(detail.map((d) => d.msg).join(", "));
+      } else {
+        setError(detail || "Registration failed.");
+      }
     } finally {
       setLoading(false);
     }
