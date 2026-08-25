@@ -7,7 +7,8 @@ from backend.api.v1.schemas.url_scanner import (
 )
 
 from backend.database.connection import get_db
-from backend.database.models import ScanHistory
+from backend.database.models import ScanHistory, User
+from backend.core.dependencies import get_current_user
 
 from ai_engine.risk_engine.risk_engine import calculate_risk
 
@@ -21,7 +22,8 @@ router = APIRouter()
 )
 def scan_url(
     request: URLScanRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
 
     result = calculate_risk(str(request.url))
@@ -31,7 +33,8 @@ def scan_url(
         risk_level=result["risk_level"],
         risk_score=result["risk_score"],
         reasons=result["reasons"],
-        domain=result["domain"]
+        domain=result["domain"],
+        user_id=current_user.id
     )
 
     db.add(scan_record)
