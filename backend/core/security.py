@@ -1,12 +1,18 @@
+import os
 from datetime import datetime, timedelta, timezone
 
 import bcrypt
 import jwt
+from dotenv import load_dotenv
 
-# TODO: baad me isko .env file me shift karenge
-SECRET_KEY = "sentinel-ai-dev-secret-change-me"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY not set in .env")
 
 
 def hash_password(password: str) -> str:

@@ -32,6 +32,12 @@ export default function Dashboard() {
       const data = await scanUrl(url);
       setResult(data);
     } catch (err) {
+      // Client-side validation error (koi HTTP response nahi hai)
+      if (!err.response) {
+        setError(err.message || "Scan failed. Try again.");
+        return;
+      }
+
       const detail = err.response?.data?.detail;
       if (Array.isArray(detail)) {
         // FastAPI validation errors ek array of objects hote hain
